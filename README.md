@@ -1,0 +1,1 @@
+# theoretically-calculation-of-vibration
