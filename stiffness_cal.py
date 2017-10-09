@@ -27,7 +27,7 @@ Fzz = Fh*np.cos(Ch)
 
 x[x==0] = float('inf')
 z[z==0] = float('inf')
-K = np.dstack((np.dstack((Fx/x, np.zeros((len(lx) ,len(lz))))), np.dstack((Fzx/x, Fzz/z))))
+K = np.dstack((np.dstack((-Fx/x, np.zeros((len(lx) ,len(lz))))), np.dstack((-Fzx/x, -Fzz/z))))
 
 # fig = plt.figure()
 # ax = fig.add_subplot(111)
@@ -36,8 +36,9 @@ K = np.dstack((np.dstack((Fx/x, np.zeros((len(lx) ,len(lz))))), np.dstack((Fzx/x
 # plt.show()
 
 K = K.tolist()
-for Ki in K:
-    for Kj in Ki:Kj = np.array(Kj).reshape((2, 2))
+for i, Ki in enumerate(K):
+    for j, Kj in enumerate(Ki):
+        K[i][j] = np.array(Kj)
 datK = pd.DataFrame(K)
 datK.columns = lx
 datK['Z'] = lz
