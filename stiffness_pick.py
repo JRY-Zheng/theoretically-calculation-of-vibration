@@ -9,12 +9,6 @@ class ResultNullError(IOError):
 class ResultInvalidError(ValueError):
     ERROR = ('Vibration is over the former stifness calculation region.',)
 
-if not os.path.exists('stiffness.csv'):
-    raise ResultNullError(ResultNullError.ERROR[0])
-dfK = pd.read_csv("stiffness.csv")
-datK, c = dfK.values, dfK.columns
-
-
 def trans(l, key):
     nl = []
     for li in l:
@@ -28,7 +22,11 @@ def trans(l, key):
 def str2arr(s):
     return np.array(trans(s[1:-1].split(), key=float)).reshape((2,2))
 
-def K(x, z):
+def K(x, z, n=0):
+    if not os.path.exists('stiffness\stiffness%s.csv' % n):
+        raise ResultNullError(ResultNullError.ERROR[0])
+    dfK = pd.read_csv('stiffness\stiffness%s.csv' % n)
+    datK, c = dfK.values, dfK.columns
     x, z = np.abs(x), np.abs(z)
     if not datK[trans(datK[:].T[-1], float)<=z].any():
         raise ResultInvalidError(ResultInvalidError[0])

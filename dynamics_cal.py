@@ -15,7 +15,7 @@ def dy_cal(cnf, n=0):
 
     for i, t in enumerate(T):
         # if t*10%1==0:print('Calculation in %ss' % t)
-        K = sp.K(*X[-1])
+        K = sp.K(*X[-1], n=n)
         C = 2*cnf.zeta*np.sqrt(M*K)
         A = np.vstack((A, np.dot((P[i]-np.dot(K, X[-1])-np.dot(C, V[-1])),np.linalg.inv(M).T)))
         V = np.vstack((V, A[-1]*cnf.dt))
@@ -30,5 +30,5 @@ def dy_cal(cnf, n=0):
     # plt.ylim(-lim, lim)
     # plt.scatter(lX[0], lX[1], c=range(len(lX[0])))
     # plt.show()
-    print('Succeed in NO.%s dynamics calculation.' % n)
+    print('...Succeed in NO.%s dynamics calculation.' % n)
     return t_lim

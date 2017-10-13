@@ -29,13 +29,23 @@ for pn in ('px', 'py', 'pz', 'pc'):
 process = 0  # 记录优化过程的进展
 best_result = [{}, 0]  # 记录最佳优化结果
 
+def idx():
+    i = 0
+    while(1):
+        yield i
+        i += 1
+cal_times = idx()
+clm_gener = idx()
+
 def cal(ovr):
-    nc = merge(configs, ovr)
-    nc = toDict(nc)
-    stf_cal(nc, 1)
-    return max(*dy_cal(nc, 1))
+    ct = next(cal_times)
+    nc = toDict(merge(configs, ovr))
+    stf_cal(nc, ct)
+    Ax, Az = dy_cal(nc, ct)
+    return max(Ax, Az)
 
 def climb(cnf):
+    cg = next(clm_gener)
     pass
 ##while(True):
 ##    # 记录必要数据以便绘图
@@ -67,5 +77,11 @@ def climb(cnf):
 ##img = ax.scatter(px, py, pz, c=pc)
 ##plt.colorbar(img)
 ##plt.show()
-cal({'tn':1.3})
-cal({'tn':1.6})
+##cal({'tn':1.3})
+##cal({'tn':1.6})
+id1 = idx()
+id2 = idx()
+for de in range(10):
+    i = next(id1)
+    if i % 2 ==0:j = next(id2)
+    print(i, j)

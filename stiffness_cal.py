@@ -44,5 +44,5 @@ def stf_cal(cnf, n=0):
     datK = pd.DataFrame(K)
     datK.columns = lx
     datK['Z'] = lz
-    datK.to_csv('stiffness.csv')
-    print('Succeed in NO.%s stiffness calculation.' % n)
+    datK.to_csv('stiffness\stiffness%s.csv' % n)
+    print('...Succeed in NO.%s stiffness calculation.' % n)
